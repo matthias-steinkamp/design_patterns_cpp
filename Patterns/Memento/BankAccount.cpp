@@ -15,6 +15,7 @@ namespace BankAccountMemento
 
     private:
         int m_balance;
+
         size_t m_current;
 
         struct Memento
@@ -42,7 +43,9 @@ namespace BankAccountMemento
 
     BankAccount::BankAccount() : BankAccount{ 0 } {}
 
-    BankAccount::BankAccount(int balance) : m_balance{ balance }, m_current{ 0 }  {
+    BankAccount::BankAccount(int balance) 
+        : m_balance{ balance }, m_current{ 0 }
+    {
         m_changes.push_back(std::make_shared<Memento>(m_balance));
     }
 
@@ -94,12 +97,18 @@ namespace BankAccountMemento
 
         ba.undo();
         std::cout << "Undo 1: " << ba << std::endl;
+
         ba.undo();
         std::cout << "Undo 2: " << ba << std::endl;
+
         ba.redo();
         std::cout << "Redo 1: " << ba << std::endl;
-        ba.redo();
-        std::cout << "Redo 2: " << ba << std::endl;
+
+        ba.deposit(50);
+        std::cout << "Deposit: " << ba << std::endl;
+
+        ba.undo();
+        std::cout << "Undo 2: " << ba << std::endl;
     }
     /*
     balance: 175
@@ -135,7 +144,7 @@ void test_bank_account_example()
     using namespace BankAccountMemento;
 
     clientCode_01();
-    clientCode_02();
+    // clientCode_02();
 }
 
 // ===========================================================================

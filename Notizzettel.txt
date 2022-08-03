@@ -459,6 +459,143 @@ std::initializer_list     ==>  STACK / KEIN new !!!
 Template Member Method
 
 
+==================================================
+
+
+
+Interfaces:
+
+Medium zwischen Konzeption und Realisierung
+
+class IPrinter 
+
+class IScanner 
+
+------------------------
+
+class MachineFactory
+{
+    IPrinter  getPrinter () { ... }   // Liefert INTERFACE Zeiger zurück / KEINE Klassentyp
+};
+
+------------------------
+
+COM Objekt Modell von Microsoft // .NET  
+
+------------------------
+
+==================================================
+
+Vererbung:
+
+Wann kann ich / sollte ich Vererbung einsetzen ????
+
+Klasse Rectangle
+Klasse ColoredRectangle
+
+Deutschen Satz - weitestgehend grammatikalisch korrekt:
+
+"Ein ColoredRectangle IST EIN Rectangle"
+
+Beziehungen / Relationships:
+
+is-a Relationship
+
+Kontrolle: 
+
+class Point
+class Line
+
+Deutschen Satz - weitestgehend grammatikalisch korrekt:
+
+"Ein Punkt ist eine Linie"   FALSCH
+"Eine Linie ist ein Punkt"   FALSCH
+
+"Eine Linie hat-zwei Punkte"  KORREKT
+
+has-a Relationship:
+
+class Line {
+
+   Point m_begin;
+   Point m_end;
+
+
+}
+
+// =============================================
+
+class ComplexObject
+
+ComplexObject::ComplexObject (10 Parametern)
+
+So viele Parameter: ???
+
+===>  Builder:      Rumpf-Objekt
+
+// =============================================
+
+Fluent Style:   Nix mit C++
+
+Stilistik:  Referenzen das aktuellen Objekts zurückgeben zu können.
+
+// =============================================
+
+  Interfaces und deren Realisierung:
+
+  Projekt:
+
+  Interfaces  
+
+   Unterschiedliche Realisierungen
+
+      IData    	===> MockData
+
+		===> TestData
+
+		===>  RealDataWeb
+
+		===> RealDataDatabase
+
+
+    Umgebungsvariablen
+
+    Leistungsfähigerer Tools:
+
+      IData    	===> MockData
+
+     Wird mehrere Male benötigt:   Hmmm, allokieren wir MockData einmal (Singleton)
+
+			oder pro Anforderung.
+
+
+      IData    	===> MockData
+
+     Meine Anwendung läuft in verschiedenen Threads:   Hmmm, allokieren wir MockData einmal (über alle Threads)
+
+			oder pro Thread-Kontext?
+
+    TOOLS:   Di Container oder IoC Container:      Programme (Kosten).
+
+    Wird in der Regel dem Projekt zugebunden.  
+
+	Tool hat ein API.  
+
+   C++:  DI    nicht der stärkste Vertreter
+
+   C# , Java  (  Refection   )
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

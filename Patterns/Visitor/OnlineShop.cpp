@@ -20,9 +20,9 @@ namespace OnlineShopExample {
         virtual void visit(const class Game*) = 0;
 
         // other names (e.g. no method overloading) is also possible
-        // virtual void visitBook(const class Book*) = 0;
-        // virtual void visitMovie(const class Movie*) = 0;
-        // virtual void visitGame(const class Game*) = 0;
+         //virtual void visitBook(const class Book*) = 0;
+         //virtual void visitMovie(const class Movie*) = 0;
+         //virtual void visitGame(const class Game*) = 0;
     };
 
     class Element
@@ -252,9 +252,9 @@ namespace OnlineShopExample {
         std::cout << "OnlineShop Example:" << std::endl;
         std::cout << "Price: " << totalPrice << std::endl;
 
-        std::string html{ basket.toHTML() };
-        std::cout << "ShoppingBasket in HTML: " << totalPrice << std::endl;
-        std::cout << html << std::endl;
+        //std::string html{ basket.toHTML() };
+        //std::cout << "ShoppingBasket in HTML: " << totalPrice << std::endl;
+        //std::cout << html << std::endl;
     }
 }
 

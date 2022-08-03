@@ -65,6 +65,14 @@ namespace InterfaceSegregationPrinciple02
         virtual void scan(Document& doc) = 0;
     };
 
+    class IFaxer {
+    public:
+        virtual void fax(Document& doc) = 0;
+    };
+
+    class IMachine2 : 
+        public IPrinter, public IScanner, public IFaxer {};
+
     class IMachine : public IPrinter, public IScanner {};
 
     /*  ---------------------- Implementation ------------------- */
@@ -78,12 +86,12 @@ namespace InterfaceSegregationPrinciple02
         virtual void scan(Document& doc) override { };
     };
 
-    class Machine : public IMachine {
+    class Machine01 : public IMachine {
     public:
         IPrinter& m_printer;
         IScanner& m_scanner;
 
-        Machine(IPrinter& printer, IScanner& scanner)
+        Machine01(IPrinter& printer, IScanner& scanner)
             : m_printer{ printer }, m_scanner{ scanner } {}
 
         virtual void print(Document& doc) override {
@@ -92,6 +100,21 @@ namespace InterfaceSegregationPrinciple02
 
         virtual void scan(Document& doc) override {
             m_scanner.scan(doc);
+        }
+    };
+
+    class Machine01 : public IMachine2
+    {
+        virtual void print(Document& doc) override {
+            throw std::runtime_error("printing not supported");
+        }
+
+        virtual void fax(Document& doc) override {
+            throw std::runtime_error("faxing not supported");
+        }
+
+        virtual void scan(Document& doc) override {
+            // do scanning ...
         }
     };
 }

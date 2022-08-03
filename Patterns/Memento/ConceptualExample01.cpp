@@ -12,12 +12,20 @@ namespace ConceptualExample01 {
     class Memento
     {
     private:
-        std::string m_state;
+         std::string m_state;
 
     public:
-        Memento(const std::string& state) {
-            m_state = state;
-        }
+        Memento(const std::string& state) : m_state{ state } {}
+
+        // ------------------
+
+        //Memento( std::string& state) {
+        //    m_state = state;
+        //}
+        //// identisch zu
+        //Memento(const std::string& state) : m_state{ } {
+        //    m_state = state;
+        //}
 
         std::string getState() {
             return m_state;
@@ -60,6 +68,9 @@ namespace ConceptualExample01 {
         // getter / setter
         void setMemento(std::shared_ptr<Memento> memento) {
             m_memento = memento;
+
+            // std::string aha = memento->m_state; inaccessible
+
         }
 
         std::shared_ptr<Memento> getMemento() {

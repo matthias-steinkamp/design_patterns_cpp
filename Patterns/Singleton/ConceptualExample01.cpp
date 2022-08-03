@@ -8,12 +8,15 @@
 
 namespace ConceptualExample01 {
 
+  //  Singleton* Singleton::m_instance{ nullptr };
+
     class Singleton final
     {
     private:
         Singleton() {};
 
         static Singleton* m_instance;
+       // static Singleton* m_instance2 = nullptr;
         static std::mutex m_mutex;
 
     public:
@@ -29,10 +32,13 @@ namespace ConceptualExample01 {
         static Singleton* getInstanceThreadSafe()
         {
             {
-                std::scoped_lock<std::mutex> lock{ m_mutex };
+                std::lock_guard<std::mutex> mylock{ m_mutex };
+                //m_mutex.lock();
+
                 if (m_instance == nullptr) {
                     m_instance = new Singleton();
                 }
+                //m_mutex.unlock();   Destructor mylock 
             }
 
             return m_instance;
@@ -40,7 +46,8 @@ namespace ConceptualExample01 {
     };
 
     Singleton* Singleton::m_instance{ nullptr };
-    std::mutex Singleton::m_mutex;
+
+    std::mutex Singleton::m_mutex{};
 }
 
 void test_singleton_01()

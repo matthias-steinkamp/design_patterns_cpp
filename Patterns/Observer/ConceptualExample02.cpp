@@ -37,6 +37,7 @@ namespace ObserverDesignPatternSmartPointer {
     class Subject : public ISubject {
     private:
         std::list<std::shared_ptr<IObserver>> m_list_observers;
+
         std::string m_message;
 
     public:
@@ -53,15 +54,21 @@ namespace ObserverDesignPatternSmartPointer {
 
         void detach(std::shared_ptr<IObserver> observer) override {
             m_list_observers.remove(observer);
+           // m_list_observers.remove(observer);
         }
 
         void notify() override {
-            std::list<std::shared_ptr<IObserver>>::iterator iterator{ m_list_observers.begin() };
+            //std::list<std::shared_ptr<IObserver>>::iterator iterator{ m_list_observers.begin() };
+            //howManyObserver();
+            //while (iterator != m_list_observers.end()) {
+            //    std::shared_ptr<IObserver> ptr = *iterator;
+            //    ptr->update(m_message);
+            //    ++iterator;
+            //}
+
             howManyObserver();
-            while (iterator != m_list_observers.end()) {
-                std::shared_ptr<IObserver> ptr = *iterator;
-                ptr->update(m_message);
-                ++iterator;
+            for (auto& o : m_list_observers) {
+                o->update(m_message);
             }
         }
 

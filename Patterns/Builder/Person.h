@@ -12,6 +12,7 @@ class PersonBuilder;
 class Person
 {
 friend class PersonBuilder;
+
 friend std::ostream& operator<<(std::ostream& os, const Person& obj);
 
 private:
@@ -29,6 +30,8 @@ private:
     Person(std::string name) : m_name{ name } {}
 
 public:
+    // getter
+
     static PersonBuilder create(const std::string& name);
 };
 

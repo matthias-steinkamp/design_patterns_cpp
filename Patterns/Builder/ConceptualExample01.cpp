@@ -52,7 +52,9 @@ namespace ConceptualExampleBuilder01 {
         std::shared_ptr<Product> m_product;
 
     public:
-        ConcreteBuilder() : m_product{ std::make_shared<Product>() } {}
+        ConcreteBuilder() : m_product { 
+            std::make_shared<Product>()
+        } {}
 
         virtual ~ConcreteBuilder() override {}
 
@@ -71,9 +73,13 @@ namespace ConceptualExampleBuilder01 {
 
     void clientCode(Director& director)
     {
-        std::shared_ptr<Builder> builder = std::make_shared<ConcreteBuilder>();
+        std::shared_ptr<Builder> builder =
+            std::make_shared<ConcreteBuilder>();
+        
         director.construct(builder);
+        
         std::shared_ptr<Product> product = builder->getResult();
+        
         product->show();
     }
 }

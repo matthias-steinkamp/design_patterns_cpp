@@ -88,7 +88,10 @@ namespace ObserverDesignPatternSmartPointerEx {
 
     // ===========================================================================
 
-    class Observer : public IObserver, public std::enable_shared_from_this<Observer> {
+    class Observer : 
+        public IObserver, 
+        public std::enable_shared_from_this<Observer> {
+    
     private:
         std::string m_messageFromSubject;
         std::shared_ptr<Subject> m_subject;
@@ -100,6 +103,10 @@ namespace ObserverDesignPatternSmartPointerEx {
         {
             std::cout << "Hi, I'm the Observer \"" << ++Observer::m_static_number << "\".\n";
             m_number = Observer::m_static_number;
+
+            // Im Konstruktor des betroffenen Objekts kann ich
+            // shared_from_this() NICHT aufrufen: Absturz
+            std::shared_ptr<Observer> me{ shared_from_this() };
         }
 
         virtual ~Observer()
@@ -117,7 +124,16 @@ namespace ObserverDesignPatternSmartPointerEx {
         {
             try
             {
+                //m_subject->detach(this);
+
+                //std::list<IObserver*> m_list_observers;
+
+                //std::list<std::shared_ptr<IObserver>> m_list_observers;
+
+                //m_subject->detach(shared_pointer_from_my_this);
+
                 std::shared_ptr<Observer> me{ shared_from_this() };
+
                 m_subject->detach(me);
                 std::cout << "Observer \"" << m_number << "\" removed from the list.\n";
             }
