@@ -1,0 +1,467 @@
+Seminar "Design Patterns"
+=========================
+
+Peter Loos
+
+C C++ Java C# JavaScript Android Flutter 
+
+C++  / Design Pattern / C
+
+"Du"
+
+peter.loos@gmx.de
+
+peterloos.de
+
+=========================
+
+C++ Lücken
+
+Design Pattern:  OO Objekt Orientierung
+----------------------------------------
+interface
+Abstrakte Klassen
+Vererbung virtual // überschreiben
+
+Smart Pointer  // new delete 
+----------------------------------------
+
+Statement:  Modern C++ // Variadische Templates
+Lambda // auto // Move-Semantik // 
+
+Erwartungen  // Muss drin sein , sollte
+
+Horizont ================>
+
+Qt 
+
+=========================
+
+9 Uhr bis 17 Uhr
+
+Mittags:   45 Minuten   // ab 12 Uhr
+
+Montag:    
+
+Dienstag:  8.30
+
+Mittwoch:  8.30    16 Uhr 
+
+=========================
+
+Unterlagen:
+
+Github:   pelocpp  
+
+=========================
+
+class
+
+Methoden UND Daten // Attributen
+
+struct   ( C )
+
+Daten -  KEINE Methoden
+
+Technisch: 
+Java: Eine Datei 
+C++: 2 Dateien  ( Header-File // Impl.-File)
+
+class Rectangle:  
+class Square:  
+class Circle:  
+
+Methode draw // Daten: x,y, ...
+Methode paint
+
+interface:
+
+Beschreibt ein oder mehrere Methoden.
+KEINE Implementierung !!!!!!
+Es dürfen keine DATEN vorhanden sein.
+Vertrag / Kontrakt
+
+Kontrakt // 
+
+Weiteres Feature der OO
+
+Virtuelle Methodenaufrufmechanismus
+
+Viele  :  Poly
+Körper:   Morphus
+
+Vielgestaltigkeit: Polymorphismus
+
+Polymorphismus:
+
+    Rückführung auf einen Namen
+    in einer Basisklasse (draw)
+
+    plus Virtuelle Methodenaufrufmechanismus:
+
+    Es können durch
+
+    EINE Anweisung ( d->draw(); )
+
+    unterschiedlichste Methoden
+    aufgerufen werden.
+
+
+überschreiben
+
+over write 
+
+override   etw in seiner Bedeutung verändern 
+
+=========================
+
+Was ist ein Entwurfsmuster?
+
+Gebrauchsanweisung
+
+Don't reinvent the wheel
+
+Wichtig: 
+
+Man muss sich NICHT sklavisch an die
+Gebrauchsanweisung halten .
+
+ABER: Abweichungen: Es sollte Gründe geben.
+
+Hmm, die Gebrauchsanweisung sollte noch erkennbar
+sein. 
+
+Code Smell     Geruchsbelästigung
+
+=============================================
+
+Frage: SavingManager enthält Methode ?!
+
+    struct SavingManager
+    {
+        static void save(const Journal& journal, const std::string& filename, std::ostream& os) {
+
+            for (auto& entry : journal.get_entries()) {
+                os << entry << std::endl;
+            }
+        }
+    };
+
+a) C ist eine Teilmenge von C++ - per Definition.
+
+b) struct à la C:  POD - Plain Old Datatype
+
+c) struct à la C++: Wie eine Klasse,
+
+        nur alles public.
+        (( Konstruktor / Destruktor, ...))
+
+Tipp: Strukturen sind Klassen für Schreibfaule: Alles ist public.
+
+Warum eine statische Methode nicht in einem Namensraum?
+
+Ginge in EINER Datei.
+
+Bei einer Struktur:  Header-File und Impl-File.
+
+Also:
+
+Prinzipiell sollte alle Klassen, Methoden, glob. Daten
+via Header-Files und Impl.-Files realisiert werden.
+
+Was sind Namensräume?
+
+a) Wenn ich diesselbe Methode (save)  mehrere Male haben will.
+
+b) Strukturierung eines Projekts:
+
+   namespace IO
+   namespace Visualization
+   namespace LogicControl
+   namespace Logging
+   ...
+
+===================================================
+
+Neue Wünsche / Funktionen
+
+(( Redesign  ))
+
+===================================================
+
+Ein Pattern ist "überlegt"  :)
+
+===================================================
+
+Java // Android Studio   
+
+Klassenbibliothek  =====> Java (Kotlin) 
+
+                   =====> Facade:  Android NDK // Linux
+
+API Win32:   .NET  // C#
+
+===================================================
+
+Das Proxy Pattern ist ein strukturelles Entwurfsmuster,
+das für ein anderes Objekt (Ressource) einen Art Ersatz
+oder Platzhalter bereitstellt.
+
+Prominente Beispiele:
+
+"Verteilten Programmierung":
+
+Code auf andereren Rechner / Server
+
+Mit einer API
+
+HTTP // Web Service // RESTful Service
+
+HTTP Get / Put / Post 
+
+Beispiel: Wetter Daten
+
+HTTP Get:  https://wetteronline.de?location='dortmund'&uhrzeit='14:20:00'
+
+Geht // Ginge:  
+
+Das macht man mit einem Proxy-Objekt:
+
+Objekt im Sinne der Programmiersprache.
+
+class WetteronlineRequest
+{
+public:
+    auto GetWeatherData (double longitue, double latitude, std::string time);
+};
+
+// =====================================================
+
+Decorator:
+
+Beobachtungen:
+
+i) Klassen haben Methoden
+
+ii) Ich kann Klassen spezialisieren (Vererbung)
+
+iii) Diese Spezialisierung erfolgt prinzipiell 
+     zur Übersetzungszeit.
+
+Möchte was ähnliches - aber ohne Festlegung zur Übersetzungszeit:
+
+Methoden einer Klasse "erweitern".
+
+Decorator Pattern:
+
+Dieses "Erweitern" geht
+
+a) ohne Vererbung
+
+b) Zur Laufzeit
+
+c) Ist zur Laufzeit änderbar ...
+
+Lösung: Decorator Pattern
+
+// =====================================================
+
+Pointer in C++ 
+
+new / delete
+
+Praxis:  int* ip;
+
+         ip = new int [100];
+
+         // delete / Praxis / Wer gibt frei
+         // Wer sieht sich als Besitzer des 
+         // Speichers an ?
+
+         int* ip2;
+
+         ip2 = ip;
+
+         function (ip2);
+
+         delete [] ip;
+         delete [] ip2;   // CRASH !!!!!!
+
+
+Hintergrund:  Ideen // Vorgehensweisen für delete
+
+Idee:  Man stecke den Zeiger in eine Hülle
+
+?? Hüllenklasse:
+
+Wenn ein Hüllenklassenobjekt am Stack liegt:
+(lokales Objekt in einer Methode ist)
+
+a) Konstruktor : new 
+b) Destruktor:   delete
+
+Strategien:   std::unique_ptr vs. std::shared_ptr
+
+a) std::unique_ptr:  "Exklusiver" Besitz
+
+    Kommt dem klassischen Zeiger am Nächsten:
+    Es gibt nur EINEN Besitzer zu einem Zeitpunkt
+    Kann NICHT kopiert werden.
+
+b) std::shared_ptr:
+    Es kann MEHRERE Besitzer geben.
+    Er Kann kopiert werden.
+    Die Anzahl der Besitzer muss gezählt werden.
+    "Referenzzähler":  1 --> 0: delete
+
+    {
+        std::shared_ptr<int> sp;   
+
+
+    }  // hier geht sp aus dem Scope
+
+
+// ===============================================
+
+C++:   Kopier-Semantik
+
+        Umgehen: a)   &    Referenz
+                 b)   Verschieben // Move-Semantik  Verschieben == KEIN Kopieren
+
+        std::string s1 = "123";
+        std::string s2 = "456";
+
+        s2 = s1;                 // s2: "123"  s1: "123"
+
+        s2 = std::move(s1);      // s2: "123"  s1: ""           // Why ????????????
+
+        std::string berechneZeichenkette () {
+            std::string tmp;
+            ...............
+            return tmp;   // HIER WIRD VON TMP EINE KOPIE ANGELEGT:  AM STACK !!!
+                          // C++ 11:  TMP WIRD VERSCHOBEN
+        }
+
+        std::string result = berechneZeichenkette();
+
+        void function (const Person& s) {...}
+
+======================================================
+
+Adressen:
+
+...E50     // lokale Objekt , jetzt freigegeben
+...C90     // neues Objekt am Stack, jetzt freigegeben
+...0F0:    // Zielobjekt
+
+
+...760:   // lokale Objekt 
+
+
+move-Semantik:
+
+Rule of Three:    Destruktor, Copy-Konstruktor, Wertzuweisungsoperator   (  operator= )
+
+Muss ich Rule of Three beachten: JA, wenn in der Klasse Pointer sind (new)
+
+Rule of Five:    Rule of Three plus Move-Konstruktor, Move-Wertzuweisungsoperator 
+
+Muss ich Rule of Five beachten:  Prinzipiell NEIN,   unnötige Kopien entstehen.
+
+Rule of ZERO:  Es gibt in der Klasse KEIN new 
+	         Es könnte in der Klasse Smart Pointer geben
+	         Es könnte in der Klasse allen Gebrauch von STL-Container / Klassen geben.
+
+======================================================
+
+Performance // Optimierung: 
+
+Bei Templates häufig der Fall:
+
+
+                std::visit( [] (auto& dev) {  // dev: FrontEndDeveloper& oder BackEndDeveloper&
+                    dev.develop();
+                    }, 
+                    developer);
+
+
+           dev.develop();  DIES IST EIN STATISCHER AUFRUF  - Adresse von develop() bekannt - CALL adr
+
+
+
+Bei Verwendung von Interfaces - virtual:
+
+            for (const auto& developer : m_developers) {
+                developer->develop();
+            }
+
+
+          developer->develop();  DIES IST EIN DYNAMISCHER AUFRUF  -
+          Adresse von develop() unbekannt - Die Adresse steht in einer Tabelle - vtable - virtual function pointer table - 
+
+          CALLI table, offset
+
+
+===================================================
+
+C++ Keyword: noexcept
+
+C++ Exception Handling:
+
+Contra:  == Overhead 
+
+In einer Methode tritt eine Exception ein:
+Aber sie wird in dieser Methode nicht gefangen:
+
+Dann wird sie an die aufrufende Methode weitergereicht:
+
+==> Stack Unwinding:  Bis ein try-catch-Block vorhanden ist.
+
+Aussage: Der Code für Stack Unwinding ist aufwendig:
+
+            Code Volumen // Laufzeit
+
+Optimierung: noexcept
+
+Konsequenz: In dieser Methode ist KEIN Code für Stack Unwinding
+
+Was passiert, wenn trotzdem eine Ausnahme eintritt:
+
+    Crash !
+
+Wann könnte man noexcept verwenden:
+
+a) Wenn in der Methode keine Ausnahme eintritt
+b) Wenn die  Methode nur aus Wertzuweisungen besteht.
+
+Map: Schlüssel und Wert
+
+       Key und Value (Fliegengewichte / repeatingState)
+
+Vorgabe: Wie wird der Key berechnet.
+
+// ==============================================
+
+Performance:
+
+std::string:              ==> Heap / new !!!
+std::string_view:         ==> globales Datensegment / KEIN new !!!
+                              Vorzugsweise zur Verwaltung von konstanten Zeichenketten
+
+                          ==> std::string::capacity   ( length oder size )
+
+std::vector:              ==>  Heap / new !!!
+std::initializer_list     ==>  STACK / KEIN new !!!
+
+
+==================================================
+
+Template Member Method
+
+
+
+
+
+
+
+
